@@ -1,0 +1,12 @@
+{
+    "name": "Facebook Login",
+    "version": "1.0.0",
+    "description": "Allows users to sign up ",
+    "author": {
+        "name": "Chris Day", 
+        "url": "https://cdcoding.com"
+    }, 
+    "pageName": "Facebook Login",
+    "accessInJail": false,
+    "requireLogin": false
+}
