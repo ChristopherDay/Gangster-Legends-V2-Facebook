@@ -70,13 +70,13 @@
             </form>
             
             <h4> Step 2 - Make Sure Facebook App is setup correctly</h4>
-             - <a href="https://developers.facebook.com/apps/{facebookAppID}/settings/basic/">Setup Basics</a> <br />
-             - <a href="https://developers.facebook.com/apps/{facebookAppID}/fb-login/settings/">Setup Login</a> <br />
+             - <a target="_blank" href="https://developers.facebook.com/apps/{facebookAppID}/settings/basic/">Setup Basics</a> <br />
+             - <a target="_blank" href="https://developers.facebook.com/apps/{facebookAppID}/fb-login/settings/">Setup Login</a> <br />
              <small>Valid OAuth Redirect URIs should be https://yourgame.com/?page=facebook</small>
 
              <h4>Support</h4>
              <p>
-             	This is a free module so support is limited! For support please visit <a href="https://makewebgames.io/topic/27511-glv2modfree-facebook-login/">Make Web games</a>!
+             	This is a free module so support is limited! For support please visit <a target="_blank" href="https://makewebgames.io/topic/27511-glv2modfree-facebook-login/">Make Web games</a>!
              </p>
 
              <hr />
