@@ -8,5 +8,12 @@
     }, 
     "pageName": "Facebook Login",
     "accessInJail": false,
-    "requireLogin": false
+    "requireLogin": false,
+    "adminGroup": "User Management",
+    "admin": [
+        {
+            "text": "Options",
+            "method": "options"
+        }
+    ]
 }
