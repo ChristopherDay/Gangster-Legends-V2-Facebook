@@ -4,7 +4,12 @@
 
     class facebook extends module {
         
-        public $allowedMethods = array();
+        public $allowedMethods = array(
+            'newUsername'=>array('type'=>'post'),
+            'newPassword'=>array('type'=>'post'),
+            'confirmPassword'=>array('type'=>'post'),
+            'email'=>array('type'=>'post')
+        );
         
         public $fb = null;
 
@@ -74,8 +79,6 @@
 					return $this->error('Facebook SDK returned an error: ' . $e->getMessage());
 					exit;
 				}
-				
-				print_r($profile);
 
 				$user = $this->db->select("
 					SELECT * 
@@ -93,7 +96,7 @@
 					header("Location: ?");
 					exit;
 				} else {
-					return $this->html .= $this->page->buildElement("facebookSignup");
+					return $this->signup($profile);
 				}
 
 			} else {
@@ -107,4 +110,66 @@
 
         }
 
+        public function method_signup() {
+        	$this->signup(array(
+        		"email" => "chssssdffsris@cdcoding.com", 
+        		"id" => 54678960899
+        	));
+        }
+
+        public function signup($profile) {
+        	$this->construct = false;
+
+        	if (isset($this->methodData->newUsername)) {
+
+	            $user = @new user();
+	            $settings = new settings();
+	            
+	            if(preg_match("/^[a-zA-Z0-9]+$/", $this->methodData->newUsername) != 1) {
+	                $this->error('Please enter a valid username');
+	            } else if (!filter_var($profile["email"], FILTER_VALIDATE_EMAIL)) {
+	                $this->error('Please enter a valid email address');
+	            } else if (strlen($this->methodData->newUsername) < 3) {
+	                $this->error('Your username should be atleast 3 characters long');
+	            } else if (
+	                !empty($this->methodData->newPassword) && ($this->methodData->newPassword == $this->methodData->confirmPassword)
+	            ) {
+
+
+	                $makeUser = $user->makeUser(
+	                    $this->methodData->newUsername, 
+	                    $profile["email"], 
+	                    $this->methodData->newPassword
+	                );
+	                
+	                if (!ctype_digit($makeUser)) {
+	                    $this->error($makeUser);
+	                } else {
+		            	$this->db->insert("
+		            		INSERT INTO facebookLogins (FB_id, FB_email) VALUES (:id, :email);
+		            	", array(
+		            		":id" => $profile["id"], 
+		            		":email" => $profile["email"]
+		            	));
+	                    $_SESSION["userID"] = $makeUser;
+	                    header("Location:?");
+	                    exit;
+	                }
+	                
+	            } else if (isset($this->methodData->newPassword)) {
+	                $this->error('Your passwords do not match!');
+	            }
+
+        	}
+			
+			$this->html .= $this->page->buildElement("facebookSignup");
+
+        }
+
     }
+
+
+
+
+
+
